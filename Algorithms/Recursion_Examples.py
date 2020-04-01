@@ -128,4 +128,3 @@ def main():
    sierpinski(myPoints,3,myTurtle)
    myWin.exitonclick()
 
-main()
