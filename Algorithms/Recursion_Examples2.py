@@ -124,8 +124,8 @@ def printCoins(coinsUsed, change):
         coin = coin - thisCoin
 
 def main():
-    amnt = 63
-    clist = [1, 5, 10, 21, 25]
+    amnt = 33
+    clist = [1, 5, 8, 10, 25]
     coinsUsed = [0]*64
     coinCount = [0]*64
 
@@ -136,4 +136,102 @@ def main():
     print("The used list is as follows:")
     print(coinsUsed)
 
+# main()
+
+
+#######Art thief problem########
+'''
+Suppose you are a computer scientist/art thief who has broken into a major art gallery. 
+All you have with you to haul out your stolen art is your knapsack which only holds W pounds of art, but for every piece of art you know its value and its weight. 
+Write a dynamic programming function to help you maximize your profit.
+Here is a sample problem for you to use to get started: Suppose your knapsack can hold a total weight of 20. 
+You have 5 items as follows:
+item     weight      value
+  1        2           3
+  2        3           4
+  3        4           8
+  4        5           8
+  5        9          10 '''
+    
+class ArtItem:
+    def __init__(self, id, weight, value):
+        self.id = id
+        self.weight = weight
+        self.value = value
+
+def dpMaxValue(itemlist, maxweight, valuelist, weightUsed):
+    for pound in range(maxweight+1):
+        profit = 0
+        useditem = None
+        for item in [i for i in itemlist if i.weight <= pound]:
+            if valuelist[pound - item.weight] + item.value > profit:
+                profit = valuelist[pound-item.weight] + item.value
+                useditem = item
+        
+        valuelist[pound] = profit
+        weightUsed[pound] = useditem
+
+    return valuelist[maxweight]
+
+def printweights(weightUsed, maxweight):
+    pound = maxweight
+    while pound > 0:
+        itemWeight = weightUsed[pound].weight
+        print(itemWeight)
+        pound = pound - itemWeight
+
+def main():
+    maxweight = 20
+    itemlist = [ArtItem(1,2,3), ArtItem(2,3,4), ArtItem(3,4,8), ArtItem(4,5,8), ArtItem(5,9,10)]
+    valuelist = [0] * (maxweight + 1)
+    weightUsed = [0] * (maxweight + 1)
+
+    print("Maximum profit for {} pounds is:".format(maxweight))
+    print(dpMaxValue(itemlist, maxweight,valuelist, weightUsed))
+    print("The weights used for obtaining the max profit are:")
+    printweights(weightUsed,maxweight)
+
+# main()
+
+def editDistance(str1, str2, m, n, copy, indel):
+    # initiaize the matrix table to store results of subproblems
+    dp = [ [0 for i in range(n + 1)] for j in range(m + 1)]
+    
+    # Fill dp[][] in bottom up manner
+    for i in range(m + 1):
+        for j in range(n + 1):
+
+            # Base case for first string is empty,
+            # insert all of the characters to match second string
+            if i == 0:
+                dp[i][j] = j
+
+            # Base case for second string is empty,
+            # delete all of the character from first string
+            elif j == 0:
+                dp[i][j] = i
+            
+            # if last characters are the same then ignore the last char
+            # and recur for remaining string
+            elif str1[i-1] == str2[j-1]:
+                dp[i][j] = dp[i-1][j-1]
+
+            # if last characters are different then find the minimum
+            # cost from all the operations possible
+            else:
+                dp[i][j] = 1 + min(dp[i][j-1],   # insert affects row
+                                   dp[i-1][j],   # delete affects column
+                                   dp[i-1][j-1]) # replace points to the previous subproblem
+        
+    return dp
+
+def main():
+    str1 = 'apple'
+    str2 = 'apart'
+    copy = 1
+    indel = 1
+    dpTable = editDistance(str1, str2, len(str1), len(str2), copy, indel)
+
+    for row in dpTable:
+        print(row)
 main()
