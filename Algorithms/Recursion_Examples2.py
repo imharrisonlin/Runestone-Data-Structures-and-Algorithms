@@ -195,11 +195,11 @@ def main():
 
 def editDistance(str1, str2, m, n, copy, indel):
     # initiaize the matrix table to store results of subproblems
-    dp = [ [0 for i in range(n + 1)] for j in range(m + 1)]
+    dp = [ [0 for i in range(m + 1)] for j in range(n + 1)]
     
     # Fill dp[][] in bottom up manner
-    for i in range(m + 1):
-        for j in range(n + 1):
+    for i in range(n + 1):
+        for j in range(m + 1):
 
             # Base case for first string is empty,
             # insert all of the characters to match second string
@@ -213,7 +213,7 @@ def editDistance(str1, str2, m, n, copy, indel):
             
             # if last characters are the same then ignore the last char
             # and recur for remaining string
-            elif str1[i-1] == str2[j-1]:
+            elif str1[j-1] == str2[i-1]:
                 dp[i][j] = dp[i-1][j-1]
 
             # if last characters are different then find the minimum
@@ -227,7 +227,7 @@ def editDistance(str1, str2, m, n, copy, indel):
 
 def main():
     str1 = 'apple'
-    str2 = 'apart'
+    str2 = 'apartss'
     copy = 1
     indel = 1
     dpTable = editDistance(str1, str2, len(str1), len(str2), copy, indel)
