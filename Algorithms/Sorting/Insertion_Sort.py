@@ -3,7 +3,7 @@
 # Each new item is "inserted" into the correct sublist position
 # Best case: only one comparison needed without going in the while loop
 #            O(n)
-# Worst case: O(n)
+# Worst case: O(n^2)
 def insertionSort(numlist):
     for index in range(1, len(numlist)):
         currentVal = numlist[index]

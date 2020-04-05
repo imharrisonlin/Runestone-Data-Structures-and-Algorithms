@@ -2,9 +2,10 @@
 # sequential comparison of adjacent items
 # regardless of item arrangement: reqire n-1 passes
 # sum of first n integers is n(n+1)/2
-# Best case: already ordered-> no exchange
+# Best case: already ordered-> no exchange O(n)
 # Worst case: every comparison will cause an exchange
 #             avg exchange half of the time
+#             O(n^2)
 def bubbleSort(numlist):
     for passnum in range(len(numlist)-1, 0, -1):
         for i in range(passnum):
