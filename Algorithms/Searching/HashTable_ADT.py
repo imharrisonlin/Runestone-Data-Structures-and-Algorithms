@@ -12,6 +12,12 @@ class HashTable():
         self.slots = [None] * self.size
         self.data = [None] * self.size
     
+    def __len__(self):
+        return len(self.data)
+
+    def __contains__(self,item):
+        return item in self.data
+
     def hashfunction(self, key, size):
         return key%size
     
@@ -63,25 +69,27 @@ class HashTable():
     
     def __setitem__(self, key, data):
         return self.put(key,data)
+    
 
-
-# def main():
-#     H = HashTable(11)
-#     H[54] = "cat"
-#     H[26] = "dog"
-#     H[93] = "lion"
-#     H[17] = "tiger"
-#     H[77] = "bird"
-#     H[31] = "cow"
-#     H[44] = "goat"
-#     H[55] = "pig"
-#     H[20] = "chicken"
-#     print(H.slots)
-#     print(H.data)
-#     print(H[20])
-#     print(H[17])
-#     H[20] = 'duck'
-#     print(H[20])
-#     print(H.data)
-#     print(H[99])
-# main()
+def main():
+    H = HashTable(11)
+    H[54] = "cat"
+    H[26] = "dog"
+    H[93] = "lion"
+    H[17] = "tiger"
+    H[77] = "bird"
+    H[31] = "cow"
+    H[44] = "goat"
+    H[55] = "pig"
+    H[20] = "chicken"
+    print(H.slots)
+    print(H.data)
+    print(H[20])
+    print(H[17])
+    H[20] = 'duck'
+    print(H[20])
+    print(H.data)
+    print(H[99])
+    print(len(H))
+    print('harrison' in H)
+main()
